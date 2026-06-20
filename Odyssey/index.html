@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type="importmap">
+{
+  "imports": {"three": "https://unpkg.com/three@0.158.0/build/three.module.js"}
+}
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odyssey</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="images/logo.png" type="png">
+
+
+<style>
+/* =======================
+   BRAND COLORS
+======================= */
+:root {
+  --blue:#2100ff;
+  --gold:#d4af37;
+  --dark:#070914;
+  --white:#fff;
+  --muted:rgba(255,255,255,.7);
+}
+
+/* =======================
+   RESET
+======================= */
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Prompt',sans-serif;
+  background:var(--dark);
+  color:var(--white);
+}
+
+/* =======================
+   HEADER / NAV
+======================= */
+header {
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  background:rgba(7,9,20,.75);
+  backdrop-filter:blur(12px);
+}
+
+nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1.2rem 8%;
+}
+.logo { font-weight:600; }
+.nav-links { display:flex; gap:2rem; }
+.nav-links a { color:var(--muted); text-decoration:none; }
+
+/* =======================
+   PAGE SYSTEM
+======================= */
+.page {
+  display:none;
+  min-height:100vh;
+  padding:9rem 8% 6rem;
+  position:relative;
+}
+.page:target { display:block; animation: pageFade .8s ease; }
+#home { display:block; }
+
+@keyframes pageFade {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* =======================
+   BACKGROUNDS
+======================= */
+.bg-streak {
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(33,0,255,.35), transparent 40%),
+    linear-gradient(120deg, rgba(63,92,255,.25), transparent 60%);
+  z-index:-1;
+}
+
+/* =======================
+   TYPOGRAPHY
+======================= */
+h1 { font-size:clamp(4rem,7vw,7rem); }
+h2 { font-size:clamp(3rem,5vw,4.5rem); }
+.slogan { font-size:clamp(2rem,4vw,3rem); color:var(--gold); margin-top: 0; }
+p {
+  margin-top:1rem;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* ======================
+   HOME (Hero)
+======================= */
+.hero-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  min-height: 420px;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-text h2 {
+  margin-bottom: 0.2rem;
+}
+
+.hero-3d {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo3d {
+  width: 360px;
+  height: 360px;
+}
+
+/* =======================
+   CARDS
+======================= */
+.card {
+  background:rgba(255,255,255,.05);
+  border-radius:20px;
+  padding: 1.5em;
+  margin-top:1.5rem;
+}
+
+/* =======================
+   TEAM GRID
+======================= */
+.team-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1.5rem;
+  margin-top:3rem;
+}
+
+.team-card {
+  background:rgba(255,255,255,.05);
+  padding:1rem;
+  border-radius:16px;
+  text-align:center;
+  font-size:.85rem;
+  transition:transform .4s;
+}
+.team-card:hover { transform:translateY(-6px); }
+
+.team-card img {
+  width: 100%;
+  border-radius:12px;
+  margin-bottom:.6rem;
+}
+
+.team-card a {
+  display:inline-block;
+  margin-top:.5rem;
+  font-size:.8rem;
+  color:var(--gold);
+  text-decoration:none;
+}
+
+
+/* =======================
+   MEMBER PAGE ANIMATION
+======================= */
+.member-content {
+  animation: memberReveal 1s ease;
+}
+@keyframes memberReveal {
+  from { opacity:0; transform:translateY(40px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.member-photo {
+  width:260px;
+  border-radius:18px;
+  margin:2rem 0;
+}
+/* =======================
+   SPONSORS
+======================= */
+.sponsors {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:2rem;
+  margin-top:3rem;
+}
+.sponsors img {
+  width:100%;
+  filter:grayscale(100%);
+}
+
+/* =======================
+   CONTACT FORM
+======================= */
+form {
+  max-width:500px;
+  margin-top:2rem;
+  display:grid;
+  gap:1rem;
+}
+input, textarea {
+  background:rgba(255,255,255,.05);
+  border:none;
+  border-radius:12px;
+  padding:1rem;
+  color:white;
+}
+button {
+  background:linear-gradient(90deg,var(--blue),var(--gold));
+  border:none;
+  padding:1rem;
+  border-radius:40px;
+  color:white;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<!-- =======================
+     HEADER
+======================= -->
+<header>
+<nav>
+<div class="logo">ODYSSEY</div>
+<div class="nav-links">
+<a href="#home">Home</a>
+<a href="#team">Team</a>
+<a href="#evolution">Evolution</a>
+<a href="#sponsors">Collaborations</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+</header>
+
+<!-- =======================
+     HOME
+======================= -->
+<section id="home" class="page">
+<div class="bg-streak"></div>
+
+<div class="hero-row">
+
+  <div class="hero-text">
+    <h2>A New Path.</h2>
+    <div class="slogan">Towards our own Itháki.</div>
+    <p>A journey full of obstacles, challenges and victories.</p>
+  </div>
+
+  <div class="hero-3d">
+    <div id="logo3d"></div>
+  </div>
+</div>
+
+<div class="card">
+<h3>About the Competition</h3>
+<p>STEM Racing former F1 in Schools is an international STEM challenge supported and recognised by Formula 1. Teams of students use CAD software to design and CNC machine to manufacture their miniature compressed air powered cars. In terms of business and branding, teams must raise funds through sponsorships and manage their budget in order for their vision to come to life. This thrilling yet educational challenge has an aim to inspire students participating to engage with the world of motorsport and foster engineering, entrepreneurship, problem-solving and teamwork skills.</p>
+</div>
+
+<div class="card">
+<h3>About Odyssey</h3>
+<p>TYPE HERE</p>
+</div>
+
+<div style="display:flex; justify-content: center; align-items: center;">
+  <img src="images/logo.png" style="margin-top:3rem;">
+  <img src="images/logo.png" style="margin-top:3rem;">
+</div>
+
+<div style="  background:rgba(255,255,255,.05);
+  border-radius:20px;
+  margin-top:1.5rem;
+  padding-left: 1.5em;
+  padding-right: 1,5em;
+  padding-top: 20px;
+  padding-bottom: 1.5em;">
+
+  <p style="color: #d4af37;">OUR CONCEPT</p>
+  <div class="slogan" style="color: white;">Itháki.</div>
+
+  <p>TYPE HERE</p>
+
+
+</div>
+
+
+</section>
+
+<!-- =======================
+      TEAM
+======================= -->
+<section id="team" class="page">
+<h2>Our Team</h2>
+
+<div class="team-grid">
+<div class="team-card">
+<img src="images/member1.jpg">
+<h4>Konstantinos Rossos</h4>
+<p>Team Leader</p>
+<a href="#team-konstantinos">View</a>
+</div>
+
+<div class="team-card">
+<img src="images/member2.jpg">
+<h4>Marilena Kakoulli</h4>
+<p>Enterprise Manager</p>
+<a href="#team-marilena">View</a>
+</div>
+
+<div class="team-card">
+<img src="images/member3.jpg">
+<h4>Michael Calligeris</h4>
+<p>Manufacturing Engineering</p>
+<a href="#team-michael">View</a>
+</div>
+
+<div class="team-card">
+<img src="images/member4.jpg">
+<h4>Demetris Georgiou</h4>
+<p>Resource Manager</p>
+<a href="#team-demetris">View</a>
+</div>
+
+<div class="team-card">
+<img src="images/member5.jpg">
+<h4>Avgilina Kyriakidou</h4>
+<p>Graphic Designer</p>
+<a href="#team-avgilina">View</a>
+</div>
+</div>
+</section>
+
+<!-- =======================
+     TEAM MEMBER – Rossos
+======================= -->
+<section id="team-konstantinos" class="page">
+<div class="member-content">
+
+<h2>Konstantinos Rossos</h2>
+<p><strong>Role:</strong> Team Leader</p>
+
+
+<div style="display:flex; gap: 20px ; align-items: center;">
+
+
+<div><img src="images/rossosimg.png" width="400"></div>
+
+<div class="card">
+<h3>Responsibilities</h3>
+
+<ul><ul> <li>Lead the team and coordinate communication across all members.</li>
+<li>Oversee the full engineering direction and technical decision-making.</li>
+<li>Manage the CAD design process and ensure accuracy and rule compliance.</li>
+<li>Plan the engineering workflow, timelines, and major project milestones.</li>
+<li>Review prototypes, testing data, and performance results.</li>
+<li>Identify design issues and coordinate improvements or redesigns.</li>
+<li>Allocate engineering tasks and track progress to keep the team on schedule.</li>
+<li>Work with manufacturers and ensure high-quality production of parts.</li>
+<li>Ensure all engineering documentation is complete for the portfolio.</li>
+<li>Approve the final car design before manufacturing.</li>
+<li>Ensure the car meets all technical regulations and competition standards.</li>
+<li>Support the engineering sections of the verbal presentation and explain design choices.</li>
+</ul></ul>
+</div>
+</div>
+
+<div class="card">
+<h3>Why to join the competition?</h3>
+<p>I wanted to join the competition again because, last time showed me how much it can push you and change you. I learned a lot, not just about the car, but about managing people, fixing problems under pressure, and keeping a team together. This year I want to do everything I didn’t get right before and actually improve it. With Odyssey, I feel like we have a fresh start, a clearer idea of what we want, the skills that this competition looks for, and a team that’s ready to work. Joining again isn’t just about doing F1 in Schools one more time; it’s about proving that we can grow, we can level up, and we can actually reach a standard we didn’t hit before. This is my chance to become a better leader, and to help my team realise what they can really do.</p>
+</div>
+<br>
+<a href="#team" style="color:var(--gold)">← Back to Team</a>
+
+</div>
+</section>
+
+<!-- =======================
+     TEAM MEMBER – Marilena
+======================= -->
+<section id="team-marilena" class="page">
+<div class="member-content">
+
+<h2>Marilena Kakoulli</h2>
+<p><strong>Role:</strong>Enterprise Manager</p>
+
+<div style="display:flex; gap: 20px ; align-items: center;">
+<div><img src="images/rossosimg.png" width="400"></div>
+<div class="card">
+
+<h3>Responsibilities</h3>
+
+<ul><ul> <li>Lead the team and coordinate communication across all members.</li>
+<li>Oversee the full engineering direction and technical decision-making.</li>
+<li>Manage the CAD design process and ensure accuracy and rule compliance.</li>
+<li>Plan the engineering workflow, timelines, and major project milestones.</li>
+<li>Review prototypes, testing data, and performance results.</li>
+<li>Identify design issues and coordinate improvements or redesigns.</li>
+<li>Allocate engineering tasks and track progress to keep the team on schedule.</li>
+<li>Work with manufacturers and ensure high-quality production of parts.</li>
+<li>Ensure all engineering documentation is complete for the portfolio.</li>
+<li>Approve the final car design before manufacturing.</li>
+<li>Ensure the car meets all technical regulations and competition standards.</li>
+<li>Support the engineering sections of the verbal presentation and explain design choices.</li>
+</ul></ul>
+</div>
+</div>
+
+<div class="card">
+<h3>Why to join the competition?</h3>
+<p>I wanted to join the competition again because, last time showed me how much it can push you and change you. I learned a lot, not just about the car, but about managing people, fixing problems under pressure, and keeping a team together. This year I want to do everything I didn’t get right before and actually improve it. With Odyssey, I feel like we have a fresh start, a clearer idea of what we want, the skills that this competition looks for, and a team that’s ready to work. Joining again isn’t just about doing F1 in Schools one more time; it’s about proving that we can grow, we can level up, and we can actually reach a standard we didn’t hit before. This is my chance to become a better leader, and to help my team realise what they can really do.</p>
+</div>
+<br>
+<a href="#team" style="color:var(--gold)">← Back to Team</a>
+
+</div>
+</section>
+<!-- =======================
+     TEAM MEMBER – Mikey
+======================= -->
+<section id='team-michael' class="page">
+<div class="member-content">
+
+<h2>Michael Calligeris</h2>
+<p><strong>Role:</strong>Manufacturing Engineer</p>
+
+
+<div style="display:flex; gap: 20px ; align-items: center;">
+
+
+<div><img src="images/rossosimg.png" width="400"></div>
+
+<div class="card">
+<h3>Responsibilities</h3>
+
+<ul><ul> <li>Lead the team and coordinate communication across all members.</li>
+<li>Oversee the full engineering direction and technical decision-making.</li>
+<li>Manage the CAD design process and ensure accuracy and rule compliance.</li>
+<li>Plan the engineering workflow, timelines, and major project milestones.</li>
+<li>Review prototypes, testing data, and performance results.</li>
+<li>Identify design issues and coordinate improvements or redesigns.</li>
+<li>Allocate engineering tasks and track progress to keep the team on schedule.</li>
+<li>Work with manufacturers and ensure high-quality production of parts.</li>
+<li>Ensure all engineering documentation is complete for the portfolio.</li>
+<li>Approve the final car design before manufacturing.</li>
+<li>Ensure the car meets all technical regulations and competition standards.</li>
+<li>Support the engineering sections of the verbal presentation and explain design choices.</li>
+</ul></ul>
+</div>
+</div>
+
+<div class="card">
+<h3>Why to join the competition?</h3>
+<p>I wanted to join the competition again because, last time showed me how much it can push you and change you. I learned a lot, not just about the car, but about managing people, fixing problems under pressure, and keeping a team together. This year I want to do everything I didn’t get right before and actually improve it. With Odyssey, I feel like we have a fresh start, a clearer idea of what we want, the skills that this competition looks for, and a team that’s ready to work. Joining again isn’t just about doing F1 in Schools one more time; it’s about proving that we can grow, we can level up, and we can actually reach a standard we didn’t hit before. This is my chance to become a better leader, and to help my team realise what they can really do.</p>
+</div>
+<br>
+<a href="#team" style="color:var(--gold)">← Back to Team</a>
+
+</div>
+</section>
+<!-- =======================
+     TEAM MEMBER – Blackys
+======================= -->
+<section id="team-demetris" class="page">
+<div class="member-content">
+
+<h2>Demetris Georgiou</h2>
+<p><strong>Role:</strong>Resource Manager</p>
+
+
+<div style="display:flex; gap: 20px ; align-items: center;">
+
+
+<div><img src="images/rossosimg.png" width="400"></div>
+
+<div class="card">
+<h3>Responsibilities</h3>
+
+<ul><ul> <li>Lead the team and coordinate communication across all members.</li>
+<li>Oversee the full engineering direction and technical decision-making.</li>
+<li>Manage the CAD design process and ensure accuracy and rule compliance.</li>
+<li>Plan the engineering workflow, timelines, and major project milestones.</li>
+<li>Review prototypes, testing data, and performance results.</li>
+<li>Identify design issues and coordinate improvements or redesigns.</li>
+<li>Allocate engineering tasks and track progress to keep the team on schedule.</li>
+<li>Work with manufacturers and ensure high-quality production of parts.</li>
+<li>Ensure all engineering documentation is complete for the portfolio.</li>
+<li>Approve the final car design before manufacturing.</li>
+<li>Ensure the car meets all technical regulations and competition standards.</li>
+<li>Support the engineering sections of the verbal presentation and explain design choices.</li>
+</ul></ul>
+</div>
+</div>
+
+<div class="card">
+<h3>Why to join the competition?</h3>
+<p>I wanted to join the competition again because, last time showed me how much it can push you and change you. I learned a lot, not just about the car, but about managing people, fixing problems under pressure, and keeping a team together. This year I want to do everything I didn’t get right before and actually improve it. With Odyssey, I feel like we have a fresh start, a clearer idea of what we want, the skills that this competition looks for, and a team that’s ready to work. Joining again isn’t just about doing F1 in Schools one more time; it’s about proving that we can grow, we can level up, and we can actually reach a standard we didn’t hit before. This is my chance to become a better leader, and to help my team realise what they can really do.</p>
+</div>
+<br>
+<a href="#team" style="color:var(--gold)">← Back to Team</a>
+
+</div>
+</section>
+<!-- =======================
+     TEAM MEMBER – Avgilina
+======================= -->
+<section id="team-avgilina" class="page">
+<div class="member-content">
+
+<h2>Avgilina Kyriakidou</h2>
+<p><strong>Role:</strong> Graphic Designer</p>
+
+
+<div style="display:flex; gap: 20px ; align-items: center;">
+
+
+<div><img src="images/rossosimg.png" width="400"></div>
+
+<div class="card">
+<h3>Responsibilities</h3>
+
+<ul><ul> <li>Lead the team and coordinate communication across all members.</li>
+<li>Oversee the full engineering direction and technical decision-making.</li>
+<li>Manage the CAD design process and ensure accuracy and rule compliance.</li>
+<li>Plan the engineering workflow, timelines, and major project milestones.</li>
+<li>Review prototypes, testing data, and performance results.</li>
+<li>Identify design issues and coordinate improvements or redesigns.</li>
+<li>Allocate engineering tasks and track progress to keep the team on schedule.</li>
+<li>Work with manufacturers and ensure high-quality production of parts.</li>
+<li>Ensure all engineering documentation is complete for the portfolio.</li>
+<li>Approve the final car design before manufacturing.</li>
+<li>Ensure the car meets all technical regulations and competition standards.</li>
+<li>Support the engineering sections of the verbal presentation and explain design choices.</li>
+</ul></ul>
+</div>
+</div>
+
+<div class="card">
+<h3>Why to join the competition?</h3>
+<p>I wanted to join the competition again because, last time showed me how much it can push you and change you. I learned a lot, not just about the car, but about managing people, fixing problems under pressure, and keeping a team together. This year I want to do everything I didn’t get right before and actually improve it. With Odyssey, I feel like we have a fresh start, a clearer idea of what we want, the skills that this competition looks for, and a team that’s ready to work. Joining again isn’t just about doing F1 in Schools one more time; it’s about proving that we can grow, we can level up, and we can actually reach a standard we didn’t hit before. This is my chance to become a better leader, and to help my team realise what they can really do.</p>
+</div>
+<br>
+<a href="#team" style="color:var(--gold)">← Back to Team</a>
+
+</div>
+</section>
+
+
+<!-- =======================
+     EVOLUTION
+======================= -->
+
+<section id="evolution" class="page">
+<div class="bg-streak"></div>
+<h2>Our Evolution</h2>
+
+<div style="display: flexbox;justify-content: center;align-items: baseline;">
+
+  
+  <a href="https://www.horizonracingf1.com"><img src="images/logo.png" width="400px"></a>
+  <img src="images/logo.png" width="400px">
+  <img src="images/logo.png" width="400px">
+
+
+
+
+</div>
+<p>TYPE HERE – Horizon Racing → Odyssey</p>
+
+
+
+
+
+
+</section>
+
+<!-- =======================
+     SPONSORS
+======================= -->
+<section id="sponsors" class="page">
+<h2>Sponsors</h2>
+<div class="sponsors">
+<img src="images/sponsor1.png">
+<img src="images/sponsor2.png">
+<img src="images/sponsor3.png">
+<img src="images/sponsor3.png">
+</div>
+</section>
+
+<!-- =======================
+     CONTACT
+======================= -->
+<section id="contact" class="page">
+<h2>Contact us</h2>
+
+<form action="mailto:youremail@example.com" method="post" enctype="text/plain">
+<input type="text" name="Name" placeholder="Your Name" required>
+<input type="email" name="Email" placeholder="Your Email" required>
+<textarea name="Message" placeholder="Your Message" required></textarea>
+<button type="submit">Send Email</button>
+</form>
+
+
+
+</section>
+
+<!-- =======================
+     3D GOLD CUBE
+======================= -->
+<script type="module">
+import * as THREE from "https://unpkg.com/three@0.158.0/build/three.module.js";
+import { GLTFLoader } from "https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js";
+const c=document.getElementById("logo3d");
+console.log("3D SCRIPT RUNNING");
+const s=new THREE.Scene();
+
+const loader = new GLTFLoader();
+let logoModel;
+
+const cam=new THREE.PerspectiveCamera(45,1,.1,100);
+cam.position.z=5;
+const r=new THREE.WebGLRenderer({alpha:true,antialias:true});
+r.setSize(c.clientWidth, c.clientHeight);
+cam.aspect = c.clientWidth / c.clientHeight;
+cam.updateProjectionMatrix();
+c.appendChild(r.domElement);
+
+s.add(new THREE.AmbientLight(0xffffff,.8));
+const l=new THREE.DirectionalLight(0xffffff,1.2);
+l.position.set(5,5,5);
+s.add(l);
+
+const cube=new THREE.Mesh(
+new THREE.BoxGeometry(1.5,1.5,1.5),
+new THREE.MeshStandardMaterial({color:0xffd700,metalness:1,roughness:.3})
+);
+s.add(cube);
+
+loader.load(
+  "models/logo.glb",
+  (gltf) => {
+
+    logoModel = gltf.scene;
+
+    logoModel.scale.set(2.7, 2.7, 2.7);
+    logoModel.position.set(0, -1, 0);
+    logoModel.traverse((child) => {
+      if (!child.isMesh) return;
+
+      const name = child.name.toLowerCase();
+      // Carved letters / inner text
+      if (name.includes("text") || name.includes("letter") || name.includes("inner")) {
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0x000000,
+          metalness: 1,
+          roughness: 1,
+          side: THREE.DoubleSide
+        });
+      } 
+      // Main logo body\
+      else {
+        child.material = new THREE.MeshStandardMaterial({
+          color: 0xdaf34,
+          metalness: 1,
+          roughness: 0.0,
+          emissive: 0x2100ff,
+          emissiveIntensity: 0.25,
+          side: THREE.DoubleSide
+        });
+      }
+    });
+
+    s.remove(cube);     // remove debug cube
+    s.add(logoModel);  // add logo geometry
+  },
+
+  undefined,
+
+  (err) => {
+    console.error("LOGO FAILED TO LOAD", err);
+  }
+);
+
+(function animate(){
+requestAnimationFrame(animate);
+if (logoModel) {
+  logoModel.rotation.y += 0.01;
+} else {
+  cube.rotation.y += 0.01;
+}
+r.render(s,cam);
+})();
+</script>
+
+</body>
+</html>
