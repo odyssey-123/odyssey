@@ -156,7 +156,13 @@ h4{font-size:clamp(2rem,4vw,3rem);}
   box-shadow: 0 10px 15px #4a4b57;
   font-family: sans-serif;
 }
+img {
 
+    max-width: 100%;
+
+    height: auto;
+
+    display: block;
 .palette {
   display: flex;
   height: 100%;
@@ -757,6 +763,34 @@ input{
 }
 
 }
+  @media (max-width: 768px) {
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left,
+    .right {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    section {
+        padding: 20px;
+    }
+}
 </style>
 
 
@@ -1129,9 +1163,9 @@ input{
 <div class="bg-streak"></div>
 <h2>Our Evolution</h2>
 
-<div style="display: flex; justify-content: space-between; align-items: center; ">
+<div style="display: flex;flex-wrap: wrap; justify-content: space-between; align-items: center; ">
   <a href="https://www.horizonracingf1.com" target="_blank" style="margin-right: 7rem;">
-    <img src="images/HorrizonLogo.png" width="350px">
+    <img src="images/HorrizonLogo.png" width="100%"max-width:"350px">
   </a>
   <img src="images/image-removebg-preview-22.png" style="width:100%;max-width:400px;height:auto;">
   <img src="images/logo.png" style="width:100%;height:300px;>
@@ -1159,7 +1193,7 @@ input{
   <!-- Financial Sponsors -->
    <div>
     <div>
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 0px;">
+      <div style="display: flex;flex-wrap: wrap;justify-content: center;gap: 20px;">
       <h4>Financial Sponsors</h4>
       <a href="#sustainability">
       <button class="buttontree">Sustainalility
@@ -1199,46 +1233,13 @@ Through its association with the globally recognized Avis and Budget brands, the
         <img src="images/AVIS budget logo.png"style="width:100%;max-width:100px;height:auto;> 
 
     </div>
-     <!--
-    <div>
-      <br>
-      <p>In return, we promote our sponsors through branding, social media and our events ensuring they receive visibility and recognition for their contribution.</p>
-    </div>
-    <div class="block">
-      <img src="images/logo.png" width="50%">
-      <img src="images/logo.png" width="50%">
-    </div>
-    -->
+
   </div>
 
 <br>
 
- <!--
-
-  <div>
-    <div>
-      <h4>Material Sponsors</h4>
-      <p>Material sponsors support our team by providing physical resources, tools, or services instead of direct funding. This can include raw materials, manufacturing support, or access to specialized equipment.</p>
-    </div>
-    <div class="sponsors">
-      <img src="images/sponsor1.png">
-      <img src="images/sponsor2.png">
-      <img src="images/sponsor3.png">
-    </div>
-  </div>
-
-  <br>
-
-  Geography INACTION
-  <div>
-    <div style="display: flex; justify-content: space-between; align-items:end;">
-      <div>
-        <h4>Geography IN ACTION club</h4>
-        <p style="padding-right: 3rem;">This section is about geography in action club. This section is about geography in action club. This section is about geography in action club. This section is about geography in action club. 
-          This section is about geography in action club. This section is about geography in action club. This section is about geography in action club. This section is about geography in action club. This section is about geography in action club. This section is about geography in action club. This section is about geography in action club. 
-        </p>
-      </div>
-      <div>
+ 
+      <div> 
     <br>
     <br>
     <br>
