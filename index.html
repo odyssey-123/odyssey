@@ -21,72 +21,7 @@
    BRAND COLORS
 ======================= -->
 <style>
-  /* ===== RESET ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-/* ===== BASE LAYOUT ===== */
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
-}
-
-/* Make images scale properly */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Main container */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: auto;
-}
-
-/* Buttons */
-button {
-  padding: 12px 16px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* ===== DESKTOP LAYOUT ===== */
-.row {
-  display: flex;
-  gap: 20px;
-}
-
-/* ===== MOBILE FIX ===== */
-@media (max-width: 768px) {
-  .row {
-    flex-direction: column;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-
-  p {
-    font-size: 16px;
-  }
-
-  .container {
-    width: 95%;
-  }
-
-  button {
-    width: 100%;
-  }
-}
 :root {
   --blue:#2100ff;
   --gold:#d4af37;
@@ -214,7 +149,8 @@ h4{font-size:clamp(2rem,4vw,3rem);}
 
 .container {
   height: 200px;
-  width: 384px;
+  width:100%;
+  max-width:384px;
   border-radius: 1em;
   overflow: hidden;
   box-shadow: 0 10px 15px #4a4b57;
@@ -290,6 +226,8 @@ h4{font-size:clamp(2rem,4vw,3rem);}
   border-radius:20px;
   padding: 1.5em;
   margin-top:1.5rem;
+  box-sizing:border-box;
+  width:100%;
 }
 
 .block{
@@ -330,9 +268,10 @@ h4{font-size:clamp(2rem,4vw,3rem);}
 <style>
 .team-grid {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:1.5rem;
   margin-top:3rem;
+  
 }
 
 .team-card {
@@ -740,41 +679,83 @@ button:hover .icon-5 {
     PHONE @media 
  =======================-->
 <style>
+@media (max-width:768px){
 
-@media (max-width: 768px) {
-  .card {
-    flex-direction: column;
-  }
-@media (max-width: 768px) {
-  .card2 {
-    flex-direction: column;
-  }
+nav{
+    flex-direction:column;
+    gap:15px;
+    text-align:center;
 }
-@media (max-width: 768px) {
-  .card2:hover {
-    flex-direction: column;
-  }
+
+.nav-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
 }
-@media (max-width: 768px) {
-  .cardio {
-    flex-direction: column;
-  }
+
+.hero-row{
+    display:flex;
+    flex-direction:column;
+    text-align:center;
 }
-@media (max-width: 768px) {
-  .block {
-    flex-direction: column;
-  }
+
+.logo3d,
+#logo3d{
+    width:220px !important;
+    height:220px !important;
+    margin:20px auto;
 }
+
+.block{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
 }
-@media (max-width: 768px) {
-  .member-content {
-    flex-direction: column;
-  }
+
+.member-content{
+    width:100%;
 }
-@media (max-width: 768px) {
-  .member-photo {
-    flex-direction: column;
-  }
+
+.card,
+.card2,
+.cardio{
+    width:100%;
+    margin:15px 0;
+    box-sizing:border-box;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+h1{
+    font-size:3rem;
+}
+
+h2{
+    font-size:2rem;
+}
+
+h3{
+    font-size:1.4rem;
+}
+
+p{
+    font-size:16px;
+}
+
+section{
+    padding:20px;
+}
+
+textarea,
+input{
+    width:100%;
+    box-sizing:border-box;
+}
+
 }
 </style>
 
@@ -815,8 +796,7 @@ button:hover .icon-5 {
     <div class="slogan">Towards our own Itháki.</div>
     <p>A journey full of obstacles, challenges and victories.</p>
   </div>
-  
-  <div class="logo3d" style="width:360px; height:360px;"></div>
+  <div class="logo3d" style="width:100%;max-width:360px;height:360px;"></div>
   
 </div>
 
@@ -943,7 +923,7 @@ button:hover .icon-5 {
 <div class="block">
 
 
-<div><img src="images/member1.jpg" width="400"></div>
+<div><img src="images/member1.jpg" style="width:100%;max-width:400px;height:auto;"></div>
 
 <div class="card" style="margin-left: 10px;">
 <h3>Responsibilities</h3>
@@ -984,7 +964,7 @@ button:hover .icon-5 {
 <p><strong>Role:</strong> Enterprise Manager</p>
 
 <div class="block">
-<div><img src="images/member2.jpg" width="400"></div>
+<div><img src="images/member2.jpg" style="width:100%;max-width:400px;height:auto;"></div>
 <div class="card" style="margin-left: 10px;">
 
 <h3>Responsibilities</h3>
@@ -1027,7 +1007,7 @@ button:hover .icon-5 {
 <div class="block">
 
 
-<div><img src="images/member3.jpg" width="400"></div>
+<div><img src="images/member3.jpg" style="width:100%;max-width:400px;height:auto;"></div>
 
 <div class="card" style="margin-left: 10px;">
 <h3>Responsibilities</h3>
@@ -1068,7 +1048,7 @@ button:hover .icon-5 {
 <div class="block">
 
 
-<div><img src="images/member4.jpg" width="400"></div>
+<div><img src="images/member4.jpg" style="width:100%;max-width:400px;height:auto;"></div>
 
 <div class="card" style="margin-left: 10px;">
 <h3>Responsibilities</h3>
@@ -1109,7 +1089,7 @@ button:hover .icon-5 {
 <div class="block">
 
 
-<div><img src="images/member5.jpg" width="400"></div>
+<div><img src="images/member5.jpg" style="width:100%;max-width:400px;height:auto;"></div>
 
 <div class="card" style="margin-left: 10px;">
 <h3>Responsibilities</h3>
@@ -1153,8 +1133,8 @@ button:hover .icon-5 {
   <a href="https://www.horizonracingf1.com" target="_blank" style="margin-right: 7rem;">
     <img src="images/HorrizonLogo.png" width="350px">
   </a>
-  <img src="images/image-removebg-preview-22.png" width="400px">
-  <img src="images/logo.png" height="300px">
+  <img src="images/image-removebg-preview-22.png" style="width:100%;max-width:400px;height:auto;">
+  <img src="images/logo.png" style="width:100%;height:300px;>
 
 </div>
 
@@ -1216,10 +1196,10 @@ Through its association with the globally recognized Avis and Budget brands, the
 <p>-Avis Budget Team</p>
     
       </div>
-        <img src="images/AVIS budget logo.png" width="100px"> 
+        <img src="images/AVIS budget logo.png"style="width:100%;max-width:100px;height:auto;> 
 
     </div>
-    <!--
+     <!--
     <div>
       <br>
       <p>In return, we promote our sponsors through branding, social media and our events ensuring they receive visibility and recognition for their contribution.</p>
@@ -1309,7 +1289,7 @@ Through its association with the globally recognized Avis and Budget brands, the
       <button class="button2"   type="submit">Send Email</button>
     </form>
   </div>
-  <div class="logo3d" style="width:360px; height:360px;"></div>
+ <div class="logo3d" style="width:100%;max-width:360px;height:360px;"></div>
 
 
 </div>
