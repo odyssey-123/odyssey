@@ -45,24 +45,59 @@ body {
 ======================= -->
 <style>
 header {
-  position:fixed;
-  top:0;
-  width:100%;
-  z-index:1000;
-  background:rgba(7,9,20,.75);
-  backdrop-filter:blur(12px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(7,9,20,.75);
+  backdrop-filter: blur(12px);
 }
 
 nav {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:1.2rem 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
 }
 
-.logo { font-weight:600; }
-.nav-links { display:flex; gap:2rem;}
-.nav-links a { color:var(--muted); text-decoration:none; }
+.logo {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: .3s;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+@media (max-width:768px){
+
+  nav{
+    flex-direction:column;
+    gap:15px;
+    padding:20px;
+  }
+
+  .nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:18px;
+  }
+
+}
 </style>
 <!-- =======================
    PAGE SYSTEM
@@ -676,40 +711,25 @@ button:hover .icon-5 {
 <style>
 
 @media (max-width: 768px) {
-  .card {
-    flex-direction: column;
-  }
-@media (max-width: 768px) {
-  .card2 {
-    flex-direction: column;
-  }
-}
-@media (max-width: 768px) {
-  .card2:hover {
-    flex-direction: column;
-  }
-}
-@media (max-width: 768px) {
-  .cardio {
-    flex-direction: column;
-  }
-}
-@media (max-width: 768px) {
-  .block {
-    flex-direction: column;
-  }
-}
-}
-@media (max-width: 768px) {
+
+  .hero-row,
+  .block,
   .member-content {
     flex-direction: column;
+    display: flex;
   }
-}
-@media (max-width: 768px) {
+
+  .card,
+  .card2,
+  .cardio {
+    width: 100%;
+  }
+
   .member-photo {
-    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
   }
-}
+
 }
 </style>
 
